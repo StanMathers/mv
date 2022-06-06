@@ -4,13 +4,13 @@ from flask import Flask, render_template
 
 app = Flask(__name__)
 res = configuration.Response()
-print(res.top_rated_movies())
+# print(res.get_top_rated_movies()[0][3])
 
-# @app.route('/')
-# def index():
-#     data = res.top_rated_movies()
-#     return render_template('index.html', data = data)
+@app.route('/')
+def index():
+    data = res.get_top_rated_movies()
+    return render_template('index.html', data = data)
 
 
-# if __name__ == '__main__':
-#     app.run(debug=True)
+if __name__ == '__main__':
+    app.run(debug=True)
