@@ -73,7 +73,7 @@ class Response(API, InformationConfiguration):
         data = response.json()['results']
         for i in data:
             print(i['key'])
-
+# 123
         
 r = Response()
 a = r.get_top_rated_movies()
