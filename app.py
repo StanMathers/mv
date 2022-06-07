@@ -12,7 +12,7 @@ def index():
 
 @app.route('/details/<movie_id>')
 def details(movie_id: int):
-    return f'Movie: {movie_id}'
+    return render_template('details.html', movie_id = movie_id)
 
 if __name__ == '__main__':
     app.run(debug=True)

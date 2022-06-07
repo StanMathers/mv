@@ -67,13 +67,16 @@ class Response(API, InformationConfiguration):
     
     
     def get_trailer_by_id(self, movie_id: int):
-        data_to_return = []
+        keys = []
         
         response = requests.get(f'https://api.themoviedb.org/3/movie/{movie_id}/videos?api_key={self.KEY}')
         data = response.json()['results']
         for i in data:
-            print(i['key'])
+            keys.append(i['key'])
+        return f"https://www.youtube.com/watch?v={keys[0]}"
 # 123
-        
-r = Response()
-a = r.get_top_rated_movies()
+
+if __name__ == '__main__':
+    r = Response()
+    a = r.get_top_rated_movies()
+# print(a[0][0])

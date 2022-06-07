@@ -1,0 +1,14 @@
+{% extends 'header.html' %}
+<html lang="en">
+<head>
+</head>
+<body>
+    {% block content %}
+    {{ super() }}
+
+        <h2>Movie ID is {{ movie_id }}</h2>
+
+    {% endblock %}
+
+</body>
+</html>
