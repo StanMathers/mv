@@ -8,15 +8,20 @@
     <!-- Header and Card -->
 
         <div class="container-fluid">
-            <h3 class="mx-5 mt-3">Top rated</h3>
-        </div>
-
-        <div class="container-fluid">
 
         <div class="row">
+            
+            <h4 class="mx-5 mt-3 px-5">TOP Rated</h4>
             <div class="slider col-sm-12 col-md-10 col-lg-10 col-xl-10 offset-md-1 offset-lg-1 offset-xl-1" id="slider">
-                {% for i in data %}  
-                <div class="content-item"><a href="/details/{{ i[0] }}"><img class="rounded" src="{{ i[3] }}" alt="something"></a></div>
+                {% for i in top_rated %}  
+                    <div class="content-item"><a href="/details/{{ i[0] }}"><img class="rounded" src="{{ i[3] }}" alt="something"></a></div>
+                {% endfor %}  
+            </div>
+            
+            <h4 class="mx-5 px-5">Popular</h4>
+            <div class="slider col-sm-12 col-md-10 col-lg-10 col-xl-10 offset-md-1 offset-lg-1 offset-xl-1" id="slider">
+                {% for i in popular_movies %}  
+                    <div class="content-item"><a href="/details/{{ i[0] }}"><img class="rounded" src="{{ i[3] }}" alt="something"></a></div>
                 {% endfor %}  
             </div>
         </div>

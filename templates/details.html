@@ -6,7 +6,29 @@
     {% block content %}
     {{ super() }}
 
-        <h2>Movie ID is {{ movie_id }}</h2>
+    <div class="container-fluid mt-5">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-2">
+                <img alt="Bootstrap Image Preview" src="{{ movie_details[0][0] }}" class="rounded img-fluid" />
+              </div>
+              
+              <div class="col-md">
+                <br>
+                <h5 class="text-left">{{ movie_details[0][1] }}</h5>
+                <br>
+                <h5 class="text-left">Release date: {{ movie_details[0][2] }}</h5>
+                <h5 class="text-left">Duration: {{ movie_details[0][3] }} minutes</h5>
+                <h5 class="text-left">IMDB: {{ movie_details[0][4] }}</h5>
+                <br>
+                <h5>Overview</h5>
+                <h6>{{ movie_details[0][5] }}</h6>
+            </div>
+  
+          </div>
+        </div>
+      </div>
 
     {% endblock %}
 
