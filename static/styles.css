@@ -34,9 +34,9 @@ height: 300px;
     margin:auto !important; 
 }
 .slider_controller{
-    height: 60px;
+    height:auto;
     display: inline-block;
-    float: left;
+    text-align: right;
 }
 .slider{
     overflow-x: auto !important;
