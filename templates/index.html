@@ -11,15 +11,23 @@
 
         <div class="row">
             
-            <h4 class="mx-5 mt-3 px-5">TOP Rated</h4>
-            <div class="slider col-sm-12 col-md-10 col-lg-10 col-xl-10 offset-md-1 offset-lg-1 offset-xl-1" id="slider">
+            <h4 class="mt-3 col-6 col-sm-6 col-md-4 col-lg-5 offset-md-5 offset-lg-1">TOP Rated</h4>
+            <div class="mt-3 col-6 col-sm-6 col-md-4 col-lg-4 col-xl-4 offset-md-1 offset-lg-1 slider_controller">
+                <button class="btn btn-white back topPrev" > Previous</button>
+                <button class="btn btn-white next topNext" >Next</button>
+            </div>
+            <div class="slider topRated col-sm-12 col-md-10 col-lg-10 col-xl-10 offset-md-1 offset-lg-1 offset-xl-1" id="slider">
                 {% for i in top_rated %}  
                     <div class="content-item"><a href="/details/{{ i[0] }}"><img class="rounded" src="{{ i[3] }}" alt="something"></a></div>
                 {% endfor %}  
             </div>
             
-            <h4 class="mx-5 px-5">Popular</h4>
-            <div class="slider col-sm-12 col-md-10 col-lg-10 col-xl-10 offset-md-1 offset-lg-1 offset-xl-1" id="slider">
+            <h4 class="mt-3 col-6 col-sm-6 col-md-4 col-lg-5 offset-md-5 offset-lg-1">Popular</h4>
+            <div class="mt-3 col-6 col-sm-6 col-md-4 col-lg-4 col-xl-4 offset-md-1 offset-lg-1 slider_controller">
+                <button class="btn btn-white back popPrev"> Previous</button>
+                <button class="btn btn-white next popNext" >Next</button>
+            </div>
+            <div class="slider popularMovies col-sm-12 col-md-10 col-lg-10 col-xl-10 offset-md-1 offset-lg-1 offset-xl-1" id="slider">
                 {% for i in popular_movies %}  
                     <div class="content-item"><a href="/details/{{ i[0] }}"><img class="rounded" src="{{ i[3] }}" alt="something"></a></div>
                 {% endfor %}  
@@ -29,14 +37,22 @@
     </div>
     <script>
         $(document).ready(function(){
-            $('.slider').bind('mousewheel', function(e){
-            if(e.originalEvent.wheelDelta /120 > 0) {
-                document.getElementById('slider').scrollLeft -=50;
-            }
-            else{
-                document.getElementById('slider').scrollLeft +=50;
-            }
-        });
+            
+            $('.topNext').click(function(){
+                $('.topRated').animate({ scrollLeft: '+=210' }, 1000);
+            });
+
+            $('.topPrev').click(function(){
+                $('.topRated').animate({ scrollLeft: '-=210' }, 1000);
+            });
+            $('.popNext').click(function(){
+                $('.popularMovies').animate({ scrollLeft: '+=210' }, 1000);
+            });
+
+            $('.popPrev').click(function(){
+                $('.popularMovies').animate({ scrollLeft: '-=210' }, 1000);
+            });
+
             });
     </script>
     {% endblock %}
