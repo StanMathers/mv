@@ -6,29 +6,39 @@
     {% block content %}
     {{ super() }}
 
-    <div class="container-fluid mt-5">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="row">
-              <div class="col-md-2">
-                <img alt="Bootstrap Image Preview" src="{{ movie_details[0][0] }}" class="rounded img-fluid" />
-              </div>
-              
-              <div class="col-md">
-                <br>
-                <h5 class="text-left">{{ movie_details[0][1] }}</h5>
-                <br>
-                <h5 class="text-left">Release date: {{ movie_details[0][2] }}</h5>
-                <h5 class="text-left">Duration: {{ movie_details[0][3] }} minutes</h5>
-                <h5 class="text-left">IMDB: {{ movie_details[0][4] }}</h5>
-                <br>
-                <h5>Overview</h5>
-                <h6>{{ movie_details[0][5] }}</h6>
-            </div>
-  
-          </div>
-        </div>
+    <div class="container-lg my-5 mx-5">
+      <div class="row justify-content-center">
+
+          <iframe style="width: 86.25rem; height: 29.813rem; border-radius: 2rem;" src="https://www.youtube.com/embed/{{ movie_key }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
       </div>
+    </div>
+
+    <div class="container-lg my-5 mx-5">
+      <div class="row align-items-center">
+        
+        <div class="col-6 col-lg-3">
+          <img class="img-fluid rounded" src="{{ movie_details[0][0] }}" alt="">
+        </div>
+        
+        <div class="col-6 col-lg-3">
+          <div class="row">
+            <p class="lead">{{ movie_details[0][1] }}</p>
+            <p class="lead">Release date: {{ movie_details[0][2] }}</p>
+            <p class="lead">Duration: {{ movie_details[0][3] }} minutes</p>
+            <p class="lead">IMDB: {{ movie_details[0][4] }}</p>
+            <br>
+            <p class="lead">Overview</p>
+            <br>
+            <p class="lead-xs">{{ movie_details[0][5] }}</p>
+          </div>
+
+        </div>
+
+      </div>
+    
+    </div>
+
 
     {% endblock %}
 

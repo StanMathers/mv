@@ -15,8 +15,9 @@ def index():
 @app.route('/details/<movie_id>')
 def details(movie_id: int):
     movie_details = res.get_movie_details_by_id(int(movie_id))
-    return render_template('details.html', movie_details = movie_details)
-
+    movie_trailer_key = res.get_trailer_by_id(movie_id)
+    return render_template('details.html',
+                           movie_details = movie_details, movie_key = movie_trailer_key)
 
 
 if __name__ == '__main__':

@@ -40,7 +40,7 @@ class Response(API, InformationConfiguration):
         response = requests.get(f'https://api.themoviedb.org/3/movie/top_rated?api_key={self.KEY}')
         data = response.json()['results']
         for i in data:
-            data_to_return.append((i[self.ID], i[self.TITLE], i[self.ORIGINAL_TITLE], self.IMAGE_BASE_URL + i[self.POSTER_PATH])) 
+            data_to_return.append((i[self.ID], i[self.TITLE], i[self.ORIGINAL_TITLE], self.IMAGE_BASE_URL + i[self.POSTER_PATH], self.IMAGE_BASE_URL + i[self.BACKDROP_PATH])) 
 
         return data_to_return
     
@@ -73,7 +73,7 @@ class Response(API, InformationConfiguration):
         data = response.json()['results']
         for i in data:
             keys.append(i['key'])
-        return f"https://www.youtube.com/watch?v={keys[0]}"
+        return keys[0]
     
     def get_movie_details_by_id(self, movie_id: int):
         """
@@ -99,5 +99,7 @@ class Response(API, InformationConfiguration):
 if __name__ == '__main__':
     r = Response()
     a = r.get_top_rated_movies()
-    print(r.get_movie_details_by_id(a[0][0]))
+    # print(a)
+    print(r.get_trailer_by_id(526896))
+    # print(r.get_movie_details_by_id(a[0][0]))
 # print(a[0][0])
