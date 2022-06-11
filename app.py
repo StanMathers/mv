@@ -1,6 +1,6 @@
 import configuration
 
-from flask import Flask, render_template
+from flask import Flask, render_template, session
 
 app = Flask(__name__)
 res = configuration.Response()
@@ -19,6 +19,9 @@ def details(movie_id: int):
     return render_template('details.html',
                            movie_details = movie_details, movie_key = movie_trailer_key)
 
+@app.route('/process', methods=['POST', 'GET'])
+def process():
+    pass
 
 if __name__ == '__main__':
     app.run(debug=True)
