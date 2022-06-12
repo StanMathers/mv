@@ -1,0 +1,45 @@
+{% extends 'header.html' %}
+<html lang="en">
+<head>
+    </style>
+</head>
+<body>
+    {% block content %}
+    {{ super() }}
+
+    <div class='container-fluid'>
+        
+        <div class='row justify-content-center align-items-center mx-auto my-5'>
+
+            <div class='col-4'>
+            
+                <form class='form'>
+                    <!-- <input type="email" name="email" class='form-control mb-3' placeholder="Email" required>
+                    <input type="text" name="name" class='form-control mb-3' placeholder="Name" required>
+                    <input type="text" name="surname" class='form-control mb-3' placeholder="Surname" required>
+                    <input type="password" name="password" class='form-control mb-3' placeholder="Password" required>
+                    <input type="password" name="confirm_password" class='form-control mb-3' placeholder="Confirm Password" required>
+                    <input type="submit" class='btn btn-success form-control' value="Register">
+                    <a href="/login"><p style="color: blue;"><u>Already have an account?</u></p></a> -->
+
+                    {{ form.hidden_tag() }}
+
+                    {{ form.email(class="form-control", placeholder='email') }}
+                    {{ form.name(class='form-control', placeholder='name') }}
+                    {{ form.surname(class='form-control', placeholder='surname') }}
+                    {{ form.password(class='form-control', placeholder='password') }}
+                    {{ form.confirm_password(class='form-control', placeholder='confirm password') }}
+                    {{ form.submit(class='btn btn-success form-control') }}
+
+                </form>               
+                
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endblock %}
+
+</body>
+</html>

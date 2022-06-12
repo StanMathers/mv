@@ -1,4 +1,5 @@
 import configuration
+import forms
 
 import datetime
 import os
@@ -59,6 +60,14 @@ def details(movie_id: int):
 @app.route('/process', methods=['POST', 'GET'])
 def process():
     pass
+
+# Accounting system
+@app.route('/register')
+def register():
+    form = forms.Registration()
+
+    return render_template('registration.html', form=form)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
