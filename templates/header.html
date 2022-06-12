@@ -17,7 +17,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
 
     <!-- Navigation -->
-    <nav class="nav bg-light">
+    <!-- <nav class="nav bg-light">
         
         <li class="nav-item">
             <a href="{{ url_for('index') }}" class="nav-link active">Home</a>
@@ -27,12 +27,44 @@
             <a href="#" class="nav-link active">Movies</a>
         </li>
         
-        <li class="nav-item">
+        <li class="nav-item ">
             <a href="#" class="nav-link active">TV</a>
         </li>
+    </nav> -->
 
-    </nav>
 
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a href="{{ url_for('index') }}" class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+
+              <li class="nav-item">
+                    <a href="#" class="nav-link active">Movies</a>
+                </li>
+
+                <li class="nav-item ">
+                    <a href="#" class="nav-link active">TV</a>
+                </li>
+
+            </ul>
+            <form class="d-flex" role="search">
+                <div class="form-check form-switch">
+                    <input onclick=test() class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked">
+                    <label class="form-check-label" for="flexSwitchCheckChecked">Dark theme</label>
+                  </div>
+            </form>
+
+          </div>
+        </div>
+      </nav>
+
+    <script src="{{ url_for('static', filename='index.js') }}"></script>
     {% block content %}
     {% endblock %}
 
