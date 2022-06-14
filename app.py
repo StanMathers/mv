@@ -14,6 +14,7 @@ res = configuration.Response()
 app.secret_key = "37821acf98b1e749b237e6a976e93fb0"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.sqlite3'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.permanent_session_lifetime = datetime.timedelta(minutes=30)
 
 db = SQLAlchemy(app)
 
