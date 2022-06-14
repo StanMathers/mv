@@ -1,5 +1,5 @@
 import configuration
-from forms import Registration, Login
+from forms import Registration, Login, CommentField
 
 import datetime
 import os
@@ -55,12 +55,39 @@ def index():
     return render_template('index.html',
                            top_rated = top_rated, popular_movies = popular_movies)
 
-@app.route('/details/<movie_id>')
+@app.route('/details/<movie_id>', methods=['GET', 'POST'])
 def details(movie_id: int):
+    form = CommentField()
+
     movie_details = res.get_movie_details_by_id(int(movie_id))
     movie_trailer_key = res.get_trailer_by_id(movie_id)
-    return render_template('details.html',
-                           movie_details = movie_details, movie_key = movie_trailer_key)
+    
+    if request.method == 'POST':
+        # Code for commenting logic
+        # movie id is movie_id parameter
+        # comment_id is auto generated
+        user = User.query.filter_by(email=session['email']).first()
+        comment = Comment(movie_id=movie_id, comment=form.comment_written.data)
+        db.session.add(comment)
+        db.session.commit()
+        
+        user.commenting.append(comment)
+        db.session.commit()
+        
+        return redirect(url_for('details', movie_id=movie_id))
+
+    else:
+        display_comments = db.engine.execute(f"""                                                               
+                                    SELECT email, comment
+                                    FROM user u, comment c
+                                    JOIN comment_made cm
+                                        ON (u.user_id = cm.user_id) AND (c.comment_id = cm.comment_id)
+                                    WHERE movie_id = {movie_id}
+                                        """)
+
+        return render_template('details.html',
+                                movie_details = movie_details, movie_key = movie_trailer_key,
+                                form=form, movie_id = movie_id, display_comments = display_comments)
 
 @app.route('/process', methods=['POST', 'GET'])
 def process():

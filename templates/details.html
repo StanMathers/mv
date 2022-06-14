@@ -40,6 +40,28 @@
     </div>
 
 
+    <div class="container-lg my-5 mx-auto">
+      <div class="col">
+        <form action="/details/{{ movie_id }}" method="POST">
+          {{ form.hidden_tag() }}
+          {{ form.comment_written.label(class='mb-2') }}
+          {{ form.comment_written(class='form-control mb-2') }}
+          {{ form.submit(class='btn btn-outline-primary') }}
+        </form>
+      </div>
+    </div>
+
+    <div class="container md my-5 mx-auto">
+      <!-- <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" readonly></textarea> -->
+
+      {% if display_comments %}
+        {% for i in display_comments %}
+          <label for="exampleFormControlTextarea1" class="form-label">Commented by: {{ i[0] }}</label>
+          <textarea class="form-control border-0 mb-3" id="textAreaExample3" rows="2" readonly>{{ i[1] }}</textarea>
+          {% endfor %}
+        {% endif %}
+          
+        </div>
     {% endblock %}
 
 </body>

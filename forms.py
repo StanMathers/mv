@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, TextAreaField
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 
 
@@ -18,6 +18,7 @@ class Login(FlaskForm):
 	submit = SubmitField('Login')
 
 
-class Comment(FlaskForm):
-	pass
+class CommentField(FlaskForm):
+	comment_written = TextAreaField('Comment', validators=[DataRequired(), Length(min=5, max=500)])
+	submit = SubmitField('Comment')
 
