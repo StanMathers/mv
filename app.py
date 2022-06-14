@@ -4,7 +4,7 @@ from forms import Registration, Login
 import datetime
 import os
 
-from flask import Flask, render_template, flash, sessions, request, redirect, url_for
+from flask import Flask, render_template, flash, session, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
@@ -110,12 +110,19 @@ def login():
         
         # If email does exists, then there are the following procedures
         else:
-            sessions['email'] = form.email.data # Adding into session using email where key is 'email' and value if form.email.data
+            session['email'] = form.email.data # Adding into session using email where key is 'email' and value if form.email.data
             flash('You are now logged in.', 'success') # Giving a sing of successful login
-            return redirect(url_for('index')) # Redirect to index page
+            return redirect(url_for('login')) # Redirect to index page
         
     else:
         return render_template('login.html', form=form)
+
+@app.route('/logout')
+def logout():
+    if 'email' in session:
+        session.pop('email')
+        flash('You are now logged out.', 'info')
+        return redirect(url_for('login'))
 
 if __name__ == '__main__':
     app.run(debug=True)
