@@ -111,8 +111,7 @@ def login():
         # If email does exists, then there are the following procedures
         else:
             session['email'] = form.email.data # Adding into session using email where key is 'email' and value if form.email.data
-            flash('You are now logged in.', 'success') # Giving a sing of successful login
-            return redirect(url_for('login')) # Redirect to index page
+            return redirect(url_for('index')) # Redirect to index page
         
     else:
         return render_template('login.html', form=form)
@@ -121,7 +120,7 @@ def login():
 def logout():
     if 'email' in session:
         session.pop('email')
-        flash('You are now logged out.', 'info')
+        flash('You have been logged out.', 'info')
         return redirect(url_for('login'))
 
 if __name__ == '__main__':

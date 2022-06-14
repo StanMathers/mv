@@ -24,6 +24,7 @@
                     {{ form.surname(class='form-control mb-3', placeholder='surname') }}
                     {{ form.password(class='form-control mb-3', placeholder='password') }}
                     {{ form.submit(class='btn btn-success form-control mb-3') }}
+                    <a href="{{ url_for('login') }}">Already have an account?</a>
 
                     {% with messages = get_flashed_messages(with_categories=true) %}
                         {% if messages %}
