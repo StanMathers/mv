@@ -13,12 +13,10 @@
 
             <div class='col-4'>
             
-                <form class='form' action="{{ url_for('register') }}" method="POST">
+                <form class='form' action="{{ url_for('login') }}" method="POST">
                     {{ form.hidden_tag() }}
-                    <p class="display-6">Sign Up</p>
+                    <p class="display-6">Sign In</p>
                     {{ form.email(class="form-control mb-3", placeholder='email') }}
-                    {{ form.name(class='form-control mb-3', placeholder='name') }}
-                    {{ form.surname(class='form-control mb-3', placeholder='surname') }}
                     {{ form.password(class='form-control mb-3', placeholder='password') }}
                     {{ form.submit(class='btn btn-success form-control mb-3') }}
 

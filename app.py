@@ -1,10 +1,10 @@
 import configuration
-import forms
+from forms import Registration, Login
 
 import datetime
 import os
 
-from flask import Flask, render_template, flash, sessions
+from flask import Flask, render_template, flash, sessions, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
@@ -17,21 +17,26 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
+# Database relationship. Many To Many relationship.
 comment_made = db.Table('comment_made',
     db.Column('user_id', db.Integer, db.ForeignKey('user.user_id'), primary_key=True),
     db.Column('comment_id', db.Integer, db.ForeignKey('comment.comment_id'), primary_key=True)
 )
 
+# User table
 class User(db.Model):
     user_id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(255), unique=True, nullable=False)
     first_name = db.Column(db.String(255))
     last_name = db.Column(db.String(255))
+    password = db.Column(db.String(255))
     date_registered = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     commenting = db.relationship('Comment', secondary=comment_made)
 
     def __repr__(self):
-        return f'<{self.user_id} - {self.firstname}>'
+        return f'<{self.user_id} - {self.first_name}>'
 
+# Comment table
 class Comment(db.Model):
     comment_id = db.Column(db.Integer, primary_key=True)
     movie_id = db.Column(db.Integer)
@@ -61,13 +66,46 @@ def details(movie_id: int):
 def process():
     pass
 
-# Accounting system
-@app.route('/register')
+# Registration handler
+@app.route('/register', methods=['POST', 'GET'])
 def register():
-    form = forms.Registration()
+    form = Registration()
+    
+    # Checking if user send post request to register
+    if request.method == 'POST':
+        user = User(email=form.data['email'], first_name=form.data['name'],
+                    last_name=form.data['surname'], password=form.data['password']) # Creating an object
+        db.session.add(user) # Adding object into database
+        db.session.commit() # Saving changes
+        
+        flash('You are now registered and can log in.', 'success') # Giving sign of successful registration
+        
+        # If user is registered successfully, redirect to login page
+        return redirect(url_for('login'))
+    
+    # If user sends a get requests then go to register page
+    else:
+        return render_template('registration.html', form=form)
 
-    return render_template('registration.html', form=form)
-
+@app.route('/login', methods=['POST', 'GET'])
+def login():
+    form = Login()
+    
+    if request.method == 'POST':
+        user = User.query.filter_by(email=form.email.data).first() # Querying user by unique email to check if password is correct
+        
+        # If password is correct. Then redirect to index page with success message and add him to session
+        if user.password == form.password.data:
+            sessions['email'] = form.email.data # Adding into session using email where key is 'email' and value if form.email.data
+            flash('You are now logged in.', 'success') # Giving a sing of successful login
+            return redirect(url_for('index')) # Redirect to index page
+        
+        else:
+            flash('Invalid email or password.', 'danger')
+            return redirect(url_for('login'))
+    
+    else:
+        return render_template('login.html', form=form)
 
 if __name__ == '__main__':
     app.run(debug=True)
