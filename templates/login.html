@@ -20,6 +20,14 @@
                     {{ form.password(class='form-control mb-3', placeholder='password') }}
                     {{ form.submit(class='btn btn-success form-control mb-3') }}
 
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for i, j in messages %}
+                                <div class="alert alert-{{ i }}" role="alert">{{ j }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+
                 </form>               
                 
             </div>
