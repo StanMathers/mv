@@ -48,7 +48,8 @@
           {{ form.comment_written(class='form-control mb-2') }}
           
           {% if 'email' not in session %}
-            <button class="btn btn-outline-primary" disabled>Submit</button>
+            <p class="lead text-danger">You need to be authorized to comment.</p>
+            <button class="btn btn-outline-primary" disabled>Comment</button>
           {% else %}
             {{ form.submit(class='btn btn-outline-primary') }}
           {% endif %}
@@ -56,13 +57,24 @@
       </div>
     </div>
 
-    <div class="container md my-5 mx-auto">
-      <!-- <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" readonly></textarea> -->
+    <div class="container-md my-5 mx-auto">
 
       {% if display_comments %}
         {% for i in display_comments %}
-          <label for="exampleFormControlTextarea1" class="form-label">Commented by: {{ i[0] }}</label>
-          <textarea class="form-control border-0 mb-3" id="textAreaExample3" rows="2" readonly>{{ i[1] }}</textarea>
+          <div class="row mb-2">
+            <div class="col-6 text-start">
+              <label for="exampleFormControlTextarea1" class="form-label">Commented by: {{ i[0] }}</label>
+            </div>
+
+            {% if ('email' in session) and ( i[0] == session['email'] ) %}
+              <div class="col-6 text-end">
+                <a href="/remove_comment/{{ i[3] }}" class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i></a>
+              </div>
+            {% endif %}
+            
+            </div>
+          <textarea class="form-control border-0 mb-2" id="textAreaExample3" rows="2" readonly>{{ i[1] }}</textarea>
+          <p class="lead-6 fw-bold mb-4">{{ i[2] }}</p>
           {% endfor %}
         {% endif %}
           

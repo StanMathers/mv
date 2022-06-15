@@ -67,6 +67,8 @@ def details(movie_id: int):
         # Code for commenting logic
         # movie id is movie_id parameter
         # comment_id is auto generated
+        if form.comment_written.data.strip() == '': return redirect(url_for('details', movie_id=movie_id))
+        
         user = User.query.filter_by(email=session['email']).first()
         comment = Comment(movie_id=movie_id, comment=form.comment_written.data)
         db.session.add(comment)
@@ -78,17 +80,27 @@ def details(movie_id: int):
         return redirect(url_for('details', movie_id=movie_id))
 
     else:
-        display_comments = db.engine.execute(f"""                                                               
-                                    SELECT email, comment
+        display_comments = list(db.engine.execute(f"""                                                               
+                                    SELECT email, comment, datetime(time_added), c.comment_id
                                     FROM user u, comment c
                                     JOIN comment_made cm
                                         ON (u.user_id = cm.user_id) AND (c.comment_id = cm.comment_id)
                                     WHERE movie_id = {movie_id}
-                                        """)
-
+                                        """))
+        
         return render_template('details.html',
                                 movie_details = movie_details, movie_key = movie_trailer_key,
-                                form=form, movie_id = movie_id, display_comments = display_comments)
+                                form=form, movie_id = movie_id, display_comments = display_comments[::-1])
+
+@app.route('/remove_comment/<comment_id>', methods=['GET', 'POST'])
+def remove_comment(comment_id: int):
+    if 'email' in session:
+        user = User.query.filter_by(email=session['email']).first()
+        specific_comment = Comment.query.filter_by(comment_id=comment_id).first()
+        user.commenting.remove(specific_comment)
+        db.session.commit()
+        return redirect(url_for('details', movie_id=specific_comment.movie_id))
+
 
 @app.route('/process', methods=['POST', 'GET'])
 def process():
@@ -107,6 +119,7 @@ def register():
             return redirect(url_for('register'))
         
         else:
+            
             user = User(email=form.data['email'], first_name=form.data['name'],
                         last_name=form.data['surname'], password=form.data['password']) # Creating an object
             
