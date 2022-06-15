@@ -71,7 +71,7 @@
                 <a href="/remove_comment/{{ i[3] }}" class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i></a>
               </div>
             {% endif %}
-            
+
             </div>
           <textarea class="form-control border-0 mb-2" id="textAreaExample3" rows="2" readonly>{{ i[1] }}</textarea>
           <p class="lead-6 fw-bold mb-4">{{ i[2] }}</p>
@@ -79,6 +79,7 @@
         {% endif %}
           
         </div>
+    <script src="{{ url_for('static', filename='index.js') }}"></script>
     {% endblock %}
 
 </body>

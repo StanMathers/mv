@@ -1,3 +1,4 @@
+from curses import meta
 import configuration
 from forms import Registration, Login, CommentField
 
@@ -163,6 +164,21 @@ def logout():
         session.pop('email')
         flash('You have been logged out.', 'info')
         return redirect(url_for('login'))
+
+
+# Additional functions
+
+@app.route('/dark', methods=['POST', 'GET'])
+def dark():
+    if 'darktheme' not in session:
+        session['darktheme'] = True
+        print(request.url)
+        return redirect(url_for('index'))
+    else:
+        session.pop('darktheme')
+        print(request.url)
+        
+        return redirect(url_for('index'))
 
 if __name__ == '__main__':
     app.run(debug=True)
