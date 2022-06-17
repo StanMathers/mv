@@ -40,4 +40,18 @@ function checkboxChecked(){
     }
 }
 
+// Fix comment sizes
+function matchTextAreaSizeToText(){
+    const textarea = document.getElementsByTagName('textarea')
+
+    for(let i of textarea){
+        i.style.cssText = `height: ${i.scrollHeight}px; overflow-y: hidden;`
+        i.addEventListener('input', function(){
+            this.style.height = 'auto'
+            this.style.height = `${this.scrollHeight}px`
+        })
+    }
+}
+
+matchTextAreaSizeToText()
 checkboxChecked()

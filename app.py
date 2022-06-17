@@ -114,6 +114,11 @@ def register():
     
     # Checking if user send post request to register
     if request.method == 'POST':
+        # Check if any registration field is empty
+        if (all([form.email.data.strip(), form.first_name.data.strip(),
+                 form.last_name.data.strip(), form.password.strip()])) == False:
+            return redirect(url_for('register'))
+        
         existing_user = User.query.filter_by(email=form.email.data).first()
         if existing_user:
             flash('User with this email already exists', 'danger')
